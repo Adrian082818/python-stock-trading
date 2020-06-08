@@ -9,6 +9,15 @@ class PythonTradingBot :
     def run(self) :
         #On each minute 
         async def on_minute(conn, channel, bar):
+            #Entry
             if bar.close >= bar.open and bar.open - bar.low > 0.1:
                 print("Buying on Doji Candle!")
                 self.alpaca.submit_order("MSFT", 1, 'buy', 'market', 'day')
+        #Take profit at %1 increase (E.g $170 take profit at $171.7)
+
+#connect to get streaming stock market data 
+        self.conn = StreamConn('polygon key', 'polygon key here', 'wss://alpaca.socket.polygon.io/stocks')
+        on_minute = self.conn(r'AM$')(on_minute)
+#subscribe to Microsoft Stock
+        conn.run(['AM.MSFT'])
+bd = 
