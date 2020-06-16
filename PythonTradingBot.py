@@ -23,9 +23,15 @@ class PythonTradingBot :
         #On each minute 
         async def on_minute(conn, channel, bar):
             #Entry
-            if bar.close >= bar.open and bar.open - bar.low > 0.1:
+            symbol = bar.symbol
+            print("Close: ", bar.close)
+            print("Open: ", bar.open)
+            print("Low: ", bar.low)
+            print(symbol)
+            #Check for Doji
+            if bar.close > bar.open and bar.open - bar.low > 0.1:
                 print("Buying on Doji Candle!")
-                self.alpaca.submit_order("MSFT", 1, 'buy', 'market', 'day')
+                self.alpaca.submit_order(symbol, 1, 'buy', 'market', 'day')
         #Take profit at %1 increase (E.g $170 take profit at $171.7)
 
         #connect to get streaming stock market data 
